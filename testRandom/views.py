@@ -85,24 +85,24 @@ def generate_test(request):
             all_questions.extend(questions)
 
 
-        # Select 20 random questions from all files
-        random.shuffle(all_questions)
-        selected_questions = all_questions[:20]
+    # Select 20 random questions from all files
+    random.shuffle(all_questions)
+    selected_questions = all_questions[:20]
 
-        # Prepare the data as a dictionary
-        data = {
-            "questions": [
-                {
-                    "question": question["question"],
-                    "answers": [answer for answer in question["answers"]],
-                    "solution": question.get("solution", None)
-                }
-                for question in selected_questions
-            ]
-        }
+    # Prepare the data as a dictionary
+    data = {
+        "questions": [
+            {
+                "question": question["question"],
+                "answers": [answer for answer in question["answers"]],
+                "solution": question.get("solution", None)
+            }
+            for question in selected_questions
+        ]
+    }
 
-        # Convert the data to JSON string with indentation
-        json_data = json.dumps(data)
+    # Convert the data to JSON string with indentation
+    json_data = json.dumps(data)
 
-        # Return the JSON response
-        return JsonResponse(json.loads(json_data), json_dumps_params={'indent': 4})
+    # Return the JSON response
+    return JsonResponse(json.loads(json_data), json_dumps_params={'indent': 4})
