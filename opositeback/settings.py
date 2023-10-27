@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-8)3hil)#=ft2=5hy2_%#$=g!xvax*3vmqeh0@_!$n_@j3%h$dn
 DEBUG = False
 
 ALLOWED_HOSTS =  ['*']
-
+CORS_ALLOWED_HOSTS =  ['*']
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -38,9 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
+    'testRandom.apps.TestrandomConfig',
+    'rest_framework.authtoken',
+
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +56,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', 
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 ROOT_URLCONF = 'opositeback.urls'
 
