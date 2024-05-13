@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-8)3hil)#=ft2=5hy2_%#$=g!xvax*3vmqeh0@_!$n_@j3%h$dn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS =  ['*']
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
@@ -144,3 +142,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'your_app_name.CustomUser'
+

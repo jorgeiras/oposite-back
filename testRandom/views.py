@@ -3,6 +3,11 @@ from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import CustomUserSerializer
+
 @api_view(['GET']) 
 @permission_classes([IsAuthenticated])
 def generate_test(request):
@@ -111,3 +116,14 @@ def generate_test(request):
 
     # Return the JSON response
     return JsonResponse(json.loads(json_data), json_dumps_params={'indent': 4})
+
+
+class UserRegistrationAPIView(APIView):
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
