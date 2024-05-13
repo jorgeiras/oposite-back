@@ -143,5 +143,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'opositeback.CustomUser'
+AUTH_USER_MODEL = 'testRandom.CustomUser'
 
