@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import CustomUserSerializer
+from rest_framework.permissions import AllowAny
 
 @api_view(['GET']) 
 @permission_classes([IsAuthenticated])
@@ -119,6 +120,8 @@ def generate_test(request):
 
 
 class UserRegistrationAPIView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
