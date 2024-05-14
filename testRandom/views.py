@@ -9,6 +9,21 @@ from rest_framework.views import APIView
 from .serializers import CustomUserSerializer
 from rest_framework.permissions import AllowAny
 
+
+
+class UserRegistrationAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET']) 
 @permission_classes([IsAuthenticated])
 def generate_test(request):
@@ -119,14 +134,3 @@ def generate_test(request):
     return JsonResponse(json.loads(json_data), json_dumps_params={'indent': 4})
 
 
-class UserRegistrationAPIView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                json = serializer.data
-                return Response(json, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
